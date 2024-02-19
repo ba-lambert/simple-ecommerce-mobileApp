@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/screens/Auth/SignIn.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -67,7 +68,7 @@ class _MyAppState extends State<MyApp> {
             home: AnimatedSplashScreen(
               splash: SplashScreen(),
               splashTransition: SplashTransition.fadeTransition,
-              nextScreen: isFirstTime ? Welcome() : HomeScreen(),
+              nextScreen: isFirstTime ? Welcome() : LoginScreen(),
             ),
           );
         },
