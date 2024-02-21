@@ -1,4 +1,6 @@
 import 'package:ecommerce_app/constants/colors.dart';
+import 'package:ecommerce_app/screens/Auth/Register.dart';
+import 'package:ecommerce_app/screens/Home.dart';
 import 'package:ecommerce_app/widgets/UserInputs.dart';
 import 'package:ecommerce_app/widgets/customButton.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,10 @@ class _LoginScreenState extends State<LoginScreen> {
         elevation: 0,
         toolbarHeight: 70.h,
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()));
+            },
             icon: const Icon(
               Icons.arrow_back_ios,
               color: AppColors.primaryColor,
@@ -110,14 +115,40 @@ class _LoginScreenState extends State<LoginScreen> {
         SizedBox(
           height: 20.h,
         ),
-        const Align(
-          alignment: Alignment.bottomRight,
-          child: Text('Recovery Password'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Recovery Password'),
+            Row(
+              children: [
+                Text(
+                  "Don't have an account",
+                  style: GoogleFonts.poppins(),
+                ),
+                TextButton(
+                    onPressed: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUpScreen()))
+                        },
+                    child: Text(
+                      'Signup',
+                      style: GoogleFonts.poppins(),
+                    )),
+              ],
+            )
+          ],
         ),
         SizedBox(
           height: 20.h,
         ),
-        CustomButton(text: 'Log In', onPressed: () {}),
+        CustomButton(
+            text: 'Log In',
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()));
+            }),
         SizedBox(
           height: 30.h,
         ),
