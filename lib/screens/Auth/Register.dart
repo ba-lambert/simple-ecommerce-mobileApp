@@ -1,8 +1,10 @@
+import 'package:ecommerce_app/controllers/Authcontroller.dart';
 import 'package:ecommerce_app/screens/Auth/SignIn.dart';
 import 'package:ecommerce_app/widgets/UserInputs.dart';
 import 'package:ecommerce_app/widgets/customButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -14,6 +16,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   bool visibility = true;
+  final SignupController _signupController = Get.put(SignupController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +51,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(
                   height: 30.h,
                 ),
-                CustomButton(text: "sign up", onPressed: () {}),
+                CustomButton(
+                  text: "sign up",
+                  onPressed: _signupController.signup,
+                ),
                 SizedBox(
                   height: 20.h,
                 ),
@@ -86,11 +92,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     TextEditingController _emailcontroller = TextEditingController();
     return Column(
       children: [
-        UserInputs(label: "username", controller: _usernamecontroller),
-        UserInputs(label: "email", controller: _emailcontroller),
+        UserInputs(
+            label: "username",
+            controller: _signupController.usernamecontroller),
+        UserInputs(
+            label: "email", controller: _signupController.emailController),
         UserInputs(
           label: "password",
-          controller: _passwordcontroller,
+          controller: _signupController.passwordController,
           obscure: visibility,
           prefixIcon: const Icon(Icons.lock),
           suffixIcon: GestureDetector(
@@ -102,10 +111,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Icon(visibility ? Icons.visibility : Icons.visibility_off),
           ),
         ),
-        UserInputs(
-            prefixIcon: const Icon(Icons.lock),
-            label: "confirm-password",
-            controller: _passwordcontroller),
       ],
     );
   }

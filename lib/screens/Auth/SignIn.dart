@@ -1,10 +1,12 @@
 import 'package:ecommerce_app/constants/colors.dart';
+import 'package:ecommerce_app/controllers/Authcontroller.dart';
 import 'package:ecommerce_app/screens/Auth/Register.dart';
 import 'package:ecommerce_app/screens/Home.dart';
 import 'package:ecommerce_app/widgets/UserInputs.dart';
 import 'package:ecommerce_app/widgets/customButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _passwordController = TextEditingController();
   final _formField = GlobalKey<FormState>();
   bool _obscurePassword = true;
+  final SignupController _login = Get.put(SignupController());
 
   @override
   Widget build(BuildContext context) {
@@ -92,13 +95,13 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       children: [
         UserInputs(
-          label: "username",
-          controller: _userController,
+          label: "email",
+          controller: _login.emailController,
           prefixIcon: Icon(Icons.person),
         ),
         UserInputs(
           label: "password",
-          controller: _passwordController,
+          controller: _login.passwordController,
           prefixIcon: Icon(Icons.lock),
           obscure: _obscurePassword,
           suffixIcon: GestureDetector(
@@ -144,11 +147,9 @@ class _LoginScreenState extends State<LoginScreen> {
           height: 20.h,
         ),
         CustomButton(
-            text: 'Log In',
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()));
-            }),
+          text: 'Log In',
+          onPressed: () => _login.signin(),
+        ),
         SizedBox(
           height: 30.h,
         ),

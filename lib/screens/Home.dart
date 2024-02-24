@@ -1,8 +1,5 @@
-import 'package:ecommerce_app/constants/colors.dart';
-import 'package:ecommerce_app/screens/Auth/SignIn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,39 +7,47 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        child: BottomNavigationBar(items: const []),
-      ),
-      body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 15.w),
-          child: Column(
-            children: [
-              header(context),
-            ],
-          )),
-    );
-  }
-
-  Widget header(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.menu,
-            )),
-        Text(
-          'Ecommerce',
-          style: GoogleFonts.aclonica(
-              fontSize: 20.sp, color: AppColors.primaryColor),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(
+          70.h,
         ),
-        IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.person,
-            )),
-      ],
+        child: AppBar(
+          centerTitle: true,
+          leading: Padding(
+            padding: EdgeInsets.only(left: 20.w),
+            child: Icon(Icons.menu),
+          ),
+          title: const Align(
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                Text('Store location'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.local_activity),
+                    Text('Kigali Rwanda'),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 20.w),
+              child: IconButton(
+                icon: Icon(Icons.shopping_cart),
+                onPressed: () {},
+              ),
+            )
+          ],
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [],
+        ),
+      ),
     );
   }
 }

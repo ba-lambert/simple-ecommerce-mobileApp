@@ -1,7 +1,11 @@
 import 'package:ecommerce_app/screens/Auth/SignIn.dart';
+import 'package:ecommerce_app/screens/Home.dart';
+import 'package:ecommerce_app/services/ApiService.dart';
+import 'package:ecommerce_app/services/dio_api.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -21,6 +25,8 @@ Future<bool> getIsFirstTime() async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Get.put(AuthServices());
+  DioClient.setupInterceptors();
   bool isFirstTime = await getIsFirstTime();
   runApp(MyApp(isFirstTime: isFirstTime));
 }
@@ -49,8 +55,9 @@ class _MyAppState extends State<MyApp> {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (_, child) {
-          return MaterialApp(
+          return GetMaterialApp(
             theme: ThemeData(
+              visualDensity: VisualDensity.adaptivePlatformDensity,
               primarySwatch: const MaterialColor(0xFF03396c, <int, Color>{
                 50: Color(0xFFE4EDF4),
                 100: Color(0xFFB9CAD9),
@@ -70,6 +77,14 @@ class _MyAppState extends State<MyApp> {
               splashTransition: SplashTransition.fadeTransition,
               nextScreen: isFirstTime ? Welcome() : LoginScreen(),
             ),
+            initialRoute: '/',
+            getPages: [
+              GetPage(name: '/', page: () => LoginScreen()),
+              GetPage(
+                  name: '/home',
+                  page: () =>
+                      const HomeScreen()), // Define route for HomeScreen
+            ],
           );
         },
       );
@@ -89,17 +104,6 @@ class SplashScreen extends StatelessWidget {
             child: Image.asset("assets/images/logo.png"),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text("Hello World"),
       ),
     );
   }
