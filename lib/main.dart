@@ -81,9 +81,9 @@ class _MyAppState extends State<MyApp> {
             getPages: [
               GetPage(name: '/', page: () => LoginScreen()),
               GetPage(
-                  name: '/home',
-                  page: () =>
-                      const HomeScreen()), // Define route for HomeScreen
+                name: '/home',
+                page: () => const HomeScreen(),
+              ),
             ],
           );
         },
