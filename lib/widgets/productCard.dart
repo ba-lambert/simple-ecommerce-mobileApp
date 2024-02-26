@@ -16,8 +16,11 @@ Widget ProductCard(
     itemBuilder: (context, index) {
       return GestureDetector(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const ProductDetails()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ProductDetails(product: productlists[index])));
         },
         child: Card(
           margin: const EdgeInsets.all(8.0),

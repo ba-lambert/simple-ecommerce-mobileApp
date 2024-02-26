@@ -3,8 +3,8 @@ import 'package:dio/dio.dart';
 class DioClient {
   static final Dio _dio = Dio(BaseOptions(
     baseUrl: 'https://ecommerce-app-99ew.onrender.com/api/v1',
-    connectTimeout: const Duration(seconds: 60),
-    receiveTimeout: const Duration(seconds: 60),
+    connectTimeout: const Duration(seconds: 160),
+    receiveTimeout: const Duration(seconds: 160),
   ));
 
   // Add interceptors
