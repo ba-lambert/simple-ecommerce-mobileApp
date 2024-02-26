@@ -3,10 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ProductDetails extends StatelessWidget {
+class ProductDetails extends StatefulWidget {
   final Map<String, dynamic> product;
   const ProductDetails({super.key, required this.product});
 
+  @override
+  State<ProductDetails> createState() => _ProductDetailsState();
+}
+
+class _ProductDetailsState extends State<ProductDetails> {
+  bool showFullDescription = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +62,7 @@ class ProductDetails extends StatelessWidget {
                 child: SizedBox(
                   height: 250.h,
                   child: Image.asset(
-                    product['photos'][0],
+                    widget.product['photos'][0],
                     height: 500.h,
                   ),
                 ),
@@ -70,7 +76,7 @@ class ProductDetails extends StatelessWidget {
                 ),
               ),
               Text(
-                product['title'],
+                widget.product['title'],
                 style: GoogleFonts.montserrat(
                   fontSize: 25.sp,
                   fontWeight: FontWeight.w600,
@@ -80,7 +86,7 @@ class ProductDetails extends StatelessWidget {
                 height: 10.h,
               ),
               Text(
-                product['price'],
+                widget.product['price'],
                 style: GoogleFonts.montserrat(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
@@ -90,13 +96,60 @@ class ProductDetails extends StatelessWidget {
                 height: 10.h,
               ),
               Text(
-                product['description'],
+                showFullDescription
+                    ? widget.product['description']
+                    : _truncateDescription(widget.product['description']),
                 style: GoogleFonts.montserrat(color: Colors.grey),
+              ),
+              if (widget.product['description'].split(' ').length > 50)
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      showFullDescription = !showFullDescription;
+                    });
+                  },
+                  child: Text(
+                    showFullDescription ? 'Read Less' : 'Read More',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Text(
+                'Gallery',
+                style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w700, fontSize: 16.sp),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    for (var imageUrl in widget.product["photos"])
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Image.asset(
+                          imageUrl,
+                          width: 50.w, // Adjust the width of each image
+                          height: 50.h, // Adjust the height of each image
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  String _truncateDescription(String description) {
+    final words = description.split(' ');
+    if (words.length > 50) {
+      return words.sublist(0, 25).join(' ') + '...';
+    }
+    return description;
   }
 }

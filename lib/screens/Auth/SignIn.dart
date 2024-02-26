@@ -155,11 +155,9 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         GestureDetector(
           child: ClipRRect(
-            child: Image(
-              image: const NetworkImage(
-                  'https://media.dev.to/cdn-cgi/image/width=1280,height=720,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fpl216rvkx1xcg65i6yb0.png'),
-              height: 80.h,
-              width: 550.w,
+            child: Image.asset(
+              'assets/images/google_logo.png',
+              height: 30.h,
             ),
           ),
         )
