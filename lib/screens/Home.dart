@@ -48,60 +48,68 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(80.h),
-        child: Container(
-          height: 150.h,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SvgPicture.asset(
-                  'assets/icons/menu_ic.svg',
-                  width: 20.w,
-                  height: 20.h,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Store location',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 12.sp,
-                        color: Colors.grey[700],
+        child: Builder(
+          builder: (context) => Container(
+            height: 150.h,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                    child: SvgPicture.asset(
+                      'assets/icons/menu_ic.svg',
+                      width: 20.w,
+                      height: 20.h,
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Store location',
+                        style: GoogleFonts.montserrat(
+                          fontSize: 12.sp,
+                          color: Colors.grey[700],
+                        ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/icons/location_ic.svg',
-                          width: 20.w,
-                          height: 20.h,
-                          color: Colors.red,
-                        ),
-                        Text(
-                          'Kigali, Rwanda',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 12.sp,
-                            color: Colors.black,
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/icons/location_ic.svg',
+                            width: 20.w,
+                            height: 20.h,
+                            color: Colors.red,
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SvgPicture.asset(
-                  'assets/icons/cart_ic.svg',
-                  width: 20.w,
-                  height: 20.h,
-                ),
-              ],
+                          Text(
+                            'Kigali, Rwanda',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 12.sp,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SvgPicture.asset(
+                    'assets/icons/cart_ic.svg',
+                    width: 20.w,
+                    height: 20.h,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
+      drawer: DrawerWidget(context),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
@@ -224,6 +232,40 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           contentPadding:
               const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+        ),
+      ),
+    );
+  }
+
+  Widget DrawerWidget(BuildContext context) {
+    return Drawer(
+      child: Container(
+        color: Colors.transparent, // Make the container transparent
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              child: Text('Home'),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+              onTap: () {
+                // Handle drawer item tap
+                Navigator.pop(context); // Close the drawer
+                // Navigate to settings page or perform other actions
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.info),
+              title: Text('About'),
+              onTap: () {
+                // Handle drawer item tap
+                Navigator.pop(context); // Close the drawer
+                // Navigate to about page or perform other actions
+              },
+            ),
+          ],
         ),
       ),
     );
