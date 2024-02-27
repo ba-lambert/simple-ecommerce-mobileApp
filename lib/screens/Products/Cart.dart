@@ -58,12 +58,15 @@ class _CartScreenState extends State<CartScreen> {
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w600),
                                   ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
                                   Text(
                                     productlists[i]["price"],
                                     style: GoogleFonts.montserrat(
-                                        color: Colors.grey[500],
+                                        color: Colors.black,
                                         fontSize: 16.sp,
-                                        fontWeight: FontWeight.w600),
+                                        fontWeight: FontWeight.w400),
                                   ),
                                   SizedBox(
                                     height: 5.h,
